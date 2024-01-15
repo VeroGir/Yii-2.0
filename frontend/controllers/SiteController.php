@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Blog;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -15,6 +16,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+
+
 
 /**
  * Site controller
@@ -75,7 +78,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $blogs = Blog::find()->andWhere(['status_id' => 1])->orderBy('sort')->all();
+        return $this->render('index', ['blogs' => $blogs]);
     }
 
     /**
