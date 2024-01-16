@@ -1,7 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\web\View $blogs */
+/** @var \common\models\Blog $blogs */
 
 $this->title = 'My Yii Application';
 ?>
