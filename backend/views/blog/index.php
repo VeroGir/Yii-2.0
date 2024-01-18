@@ -32,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'url:url',
-            'status_id',
+           ['attribute' => 'url', 'format' => 'text'],
+           ['attribute' => 'status_id', 'filter' => Blog::getStatusList(), 'value' => 'statusName'],
             'sort',
             [
                 'class' => ActionColumn::className(),

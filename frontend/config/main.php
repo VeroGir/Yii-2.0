@@ -45,6 +45,12 @@ return [
                 'blog' => 'blog/index',
             ],
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset',
+            ],
+        ],
 
     ],
     'params' => $params,
