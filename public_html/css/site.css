@@ -71,6 +71,40 @@ a.desc:after {
     color: rgba(255, 255, 255, 0.5);
 }
 
+
+.pager {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.pager > li {
+    border: 1px solid #868686;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+
+.pager > li > a, .pager > li > span {
+    color: #868686;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pager > .active {
+    background: #5aa3f4;
+}
+
+.pager > .active > a {
+    position: relative;
+    color: white;
+}
+
+
+
 @media(max-width:767px) {
     .navbar form > button.logout {
         display:block;
@@ -101,3 +135,4 @@ a.desc:after {
 {
     text-decoration: none;
 }
+
