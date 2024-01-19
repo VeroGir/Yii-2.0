@@ -38,6 +38,6 @@ phpunit.phar
 /public_html/index.php
 /public_html/index-test.php
 /public_html/robots.txt
-/public_html/admin/index.php
-/public_html/admin/index-test.php
-/public_html/admin/robots.txt
+/backend/web/index.php
+/backend/web/index-test.php
+/backend/web/robots.txt
