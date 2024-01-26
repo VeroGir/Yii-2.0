@@ -3,10 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vova07\imperavi\Widget;
+use kartik\select2\Select2;
+use common\models\Tag;
+use yii\helpers\ArrayHelper;
 
 /** @var yii\web\View $this */
 /** @var common\models\Blog $model */
 /** @var yii\widgets\ActiveForm $form */
+
 ?>
 
 <div class="blog-form">
@@ -38,6 +42,17 @@ use vova07\imperavi\Widget;
     <?= $form->field($model, 'status_id')->dropDownList(\common\models\Blog::getStatusList()) ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
+
+    <?= $form->field($model, 'tags_array')->widget(select2::classname(), [
+        'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'name'),
+        'language' => 'ru',
+        'options' => ['placeholder' => 'Выбрать тег...', 'multiple' => true],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'tags' => true,
+            'maximumInputLength' => 10
+        ],
+    ]);?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

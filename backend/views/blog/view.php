@@ -35,6 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'url:url',
             'status_id',
             'sort',
+            'author.username',
+            'author.email',
+            'tagsAsString',
         ],
     ]) ?>
 
