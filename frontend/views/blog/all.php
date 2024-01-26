@@ -4,7 +4,7 @@
 /** @var \yii\data\ActiveDataProvider $dataProvider */
 
 use yii\widgets\ListView;
-use yii\widgets\LinkPager;
+use yii\bootstrap5\LinkPager;
 
 
 $blog = $dataProvider->getModels();
@@ -16,7 +16,7 @@ $blog = $dataProvider->getModels();
         'itemView' => '_one',
         'pager' => [
             'class' => LinkPager::className(),
-            'options' => ['class' => 'pager'],
+            'options' => ['class' => 'pagination'],
         ],
     ]);
     ?>

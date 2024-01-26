@@ -126,7 +126,7 @@ class BlogController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Blog::findOne(['id' => $id])) !== null) {
+        if (($model = Blog::find()->with('tags')->andWhere(['id' => $id]) -> one()) !== null) {
             return $model;
         }
 

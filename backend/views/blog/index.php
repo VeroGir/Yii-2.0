@@ -35,8 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
            ['attribute' => 'url', 'format' => 'text'],
            ['attribute' => 'status_id', 'filter' => Blog::getStatusList(), 'value' => 'statusName'],
             'sort',
-            [
-                'class' => ActionColumn::className(),
+            ['attribute' => 'tags', 'value' => 'tagsAsString'],
+                ['class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Blog $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
