@@ -6,6 +6,8 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+
+
 /** @var yii\web\View $this */
 /** @var common\models\BlogSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -33,8 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
            ['attribute' => 'url', 'format' => 'text'],
-           ['attribute' => 'status_id', 'filter' => Blog::getStatusList(), 'value' => 'statusName'],
+           ['attribute' => 'status_id', 'filter' => Blog::STATUS_LIST, 'value' => 'statusName'],
             'sort',
+            'date_create:datetime',
+            'date_update:datetime',
             ['attribute' => 'tags', 'value' => 'tagsAsString'],
                 ['class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Blog $model, $key, $index, $column) {
