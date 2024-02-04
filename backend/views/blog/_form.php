@@ -6,6 +6,8 @@ use vova07\imperavi\Widget;
 use kartik\select2\Select2;
 use common\models\Tag;
 use yii\helpers\ArrayHelper;
+use common\models\Blog;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\Blog $model */
@@ -23,6 +25,8 @@ use yii\helpers\ArrayHelper;
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
+            'formatting' => ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
+            'imageUpload' => Url::to(['site/save-redactor-img', 'sub' => 'blog']),
             'plugins' => [
                 'clips',
                 'fullscreen',
@@ -33,13 +37,12 @@ use yii\helpers\ArrayHelper;
                 ['green', '<span class="label-green">green</span>'],
                 ['blue', '<span class="label-blue">blue</span>'],
             ],
-            'formatting' => ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5'],
         ],
     ])?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status_id')->dropDownList(\common\models\Blog::getStatusList()) ?>
+    <?= $form->field($model, 'status_id')->dropDownList(Blog::STATUS_LIST) ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
 
