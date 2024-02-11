@@ -6,11 +6,13 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\file\FileInput;
 
 
 /** @var yii\web\View $this */
 /** @var common\models\BlogSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var common\models\Blog $model */
 
 $this->title = 'Blogs';
 $this->params['breadcrumbs'][] = $this->title;
@@ -37,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
            ['attribute' => 'url', 'format' => 'text'],
            ['attribute' => 'status_id', 'filter' => Blog::STATUS_LIST, 'value' => 'statusName'],
             'sort',
+            'smallImage:image',
             'date_create:datetime',
             'date_update:datetime',
             ['attribute' => 'tags', 'value' => 'tagsAsString'],

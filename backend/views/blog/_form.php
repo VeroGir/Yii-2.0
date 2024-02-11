@@ -8,6 +8,7 @@ use common\models\Tag;
 use yii\helpers\ArrayHelper;
 use common\models\Blog;
 use yii\helpers\Url;
+use kartik\file\FileInput;
 
 /** @var yii\web\View $this */
 /** @var common\models\Blog $model */
@@ -17,7 +18,9 @@ use yii\helpers\Url;
 
 <div class="blog-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data'],
+    ]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
@@ -45,6 +48,17 @@ use yii\helpers\Url;
     <?= $form->field($model, 'status_id')->dropDownList(Blog::STATUS_LIST) ?>
 
     <?= $form->field($model, 'sort')->textInput() ?>
+
+    <?=$form->field($model, 'file')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'name' => 'input-ru[]',
+        'language' => 'ru',
+        'pluginOptions' => [
+            'showUpload'=> false,
+            'browseClass' => 'btn btn-success',
+            'removeClass' => 'btn btn-danger',
+            ],
+        ]);?>
 
     <?= $form->field($model, 'tags_array')->widget(select2::classname(), [
         'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'name'),
