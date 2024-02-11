@@ -31,13 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'text:ntext',
+            'text:text',
             'url:url',
             'status_id',
             'sort',
             'author.username',
             'author.email',
             'tagsAsString',
+            'smallImage:image',
         ],
     ]) ?>
 
