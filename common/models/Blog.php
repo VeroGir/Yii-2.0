@@ -103,6 +103,10 @@ class Blog extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'status_id']);
     }
 
+    public function getImages() {
+        return $this->hasMany(ImageManager::className(),['item_id' => 'id'])->andWhere(['class' => self::tableName()]);
+    }
+
     public function getBlogTag() {
        return $this->hasMany(BlogTag::className(),['blog_id' => 'id']);
     }
@@ -117,8 +121,12 @@ class Blog extends ActiveRecord
     }
 
     public function getSmallImage() {
-        $dir = str_replace('admin', '', Url::home(true)) . 'uploads/images/blog/';
-        return $dir.'50x50/'.$this->image;
+        if ($this->image) {
+            $path = str_replace('admin.','',Url::home(true)).'uploads/images/blog/50x50/'.$this->image;
+        } else {
+            $path = str_replace('admin.','', Url::home(true)).'uploads/images/nophoto.svg';
+        }
+        return $path;
     }
 
     public function afterFind() {

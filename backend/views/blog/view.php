@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use metalguardian\fotorama\Fotorama;
 
 /** @var yii\web\View $this */
 /** @var common\models\Blog $model */
@@ -41,5 +42,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'smallImage:image',
         ],
     ]) ?>
+
+    <?php
+    $fotorama = Fotorama::begin(
+        [
+            'options' => [
+                'loop' => true,
+                'hash' => true,
+                'ratio' => 1200/800,
+            ],
+            'spinner' => [
+                'lines' => 30,
+            ],
+            'tagName' => 'span',
+            'useHtmlData' => false,
+            'htmlOptions' => [
+                'class' => 'custom-class',
+                'id' => 'custom-id',
+            ],
+        ]
+    );
+
+    foreach ($model->images as $one) {
+        echo  Html::img($one->imageUrl, ['alt'=>$one->alt]);
+    }
+
+   $fotorama::end(); ?>
+
+
+
 
 </div>
