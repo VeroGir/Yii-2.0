@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\ImageManager;
 use common\models\LoginForm;
 use yii\helpers\Url;
 use Yii;
@@ -32,11 +33,11 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'save-redactor-img'],
+                        'actions' => ['login', 'error', 'save-redactor-img', 'save-img'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'save-redactor-img'],
+                        'actions' => ['logout', 'index', 'save-redactor-img', 'save-img'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,6 +110,7 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
     public function actionSaveRedactorImg($sub = 'main')
     {
 
@@ -142,6 +144,52 @@ class SiteController extends Controller
                         'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 }
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return $result;
+            }
+        } else {
+            throw new BadRequestHttpException('Only Post is allowed');
+        }
+    }
+
+    public function actionSaveImg()
+    {
+
+        $this->enableCsrfValidation = false;
+        if (Yii::$app->request->isPost) {
+            $post = Yii::$app->request->post();
+            $dir = Yii::getAlias('@images') . '/' . $post['ImageManager']['class'] . '/';
+            if (!file_exists($dir)) {
+                FileHelper::createDirectory($dir);
+            }
+
+            $result_link = str_replace('admin', '', Url::home(true)) . 'uploads/images' . '/' . $post['ImageManager']['class'] . '/';
+            $file = UploadedFile::getInstanceByName('ImageManager[attachment]');
+            $model = new ImageManager();
+            $model->name = strtotime('now') . '_' . Yii::$app->getSecurity()->generateRandomString(6) . '.' .
+            $file->extension;
+            $model->load($post);
+            $model->validate();
+
+            if ($model->hasErrors()) {
+                $result = [
+                    'error' => $model->getFirstError('file'),
+                ];
+            } else {
+                if ($file->saveAs($dir . $model->name)) {
+                    $imag = Yii::$app->image->load($dir . $model->name);
+                    $imag->resize(800, NULL, Image_GD::PRECISE)
+                        ->save($dir . $model->name, 85);
+
+                    $result = ['filelink' => $result_link . $model->name, 'filename' => $model->name];
+                } else {
+                    $result = [
+                        'error' => 'Ошибка!'
+                    ];
+                }
+
+                $model->save();
+
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $result;
             }

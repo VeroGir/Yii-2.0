@@ -54,10 +54,11 @@ use kartik\file\FileInput;
         'name' => 'input-ru[]',
         'language' => 'ru',
         'pluginOptions' => [
+            'showPreview' => false,
             'showUpload'=> false,
             'browseClass' => 'btn btn-success',
             'removeClass' => 'btn btn-danger',
-            ],
+        ],
         ]);?>
 
     <?= $form->field($model, 'tags_array')->widget(select2::classname(), [
@@ -71,10 +72,31 @@ use kartik\file\FileInput;
         ],
     ]);?>
 
+    <?=FileInput::widget([
+        'name' => 'ImageManager[attachment]',
+        'language' => 'ru',
+        'options'=>[
+            'multiple'=>true
+        ],
+        'pluginOptions' => [
+            'uploadUrl' => Url::to(['/site/save-img']),
+            'showCaption' => false,
+            'showRemove' => false,
+            'showBrowse' => false,
+            'uploadExtraData' => [
+                'ImageManager[class]' => $model->tableName(),
+                'ImageManager[item_id]' => $model->id
+            ],
+            'maxFileCount' => 10
+        ]
+    ]);?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+
+
 
 </div>
