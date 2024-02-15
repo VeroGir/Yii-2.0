@@ -72,23 +72,29 @@ use kartik\file\FileInput;
         ],
     ]);?>
 
-    <?=FileInput::widget([
+    <?= FileInput::widget([
         'name' => 'ImageManager[attachment]',
-        'language' => 'ru',
         'options'=>[
             'multiple'=>true
         ],
         'pluginOptions' => [
+            'deleteUrl' => Url::toRoute(['/blog/delete-image']),
+            'initialPreview'=> $model->imagesLinks,
+            'initialPreviewAsData'=>true,
+            'overwriteInitial'=>false,
+            'initialPreviewConfig'=>$model->imagesLinksData,
             'uploadUrl' => Url::to(['/site/save-img']),
-            'showCaption' => false,
-            'showRemove' => false,
-            'showBrowse' => false,
             'uploadExtraData' => [
                 'ImageManager[class]' => $model->tableName(),
                 'ImageManager[item_id]' => $model->id
             ],
             'maxFileCount' => 10
-        ]
+        ],
+        'pluginEvents' => [
+            'filesorted' => new \yii\web\JsExpression('function(event, params){
+                  $.post("'.Url::toRoute(["/blog/sort-image","id"=>$model->id]).'",{sort: params});
+            }')
+        ],
     ]);?>
 
     <div class="form-group">
