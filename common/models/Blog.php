@@ -103,8 +103,24 @@ class Blog extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'status_id']);
     }
 
-    public function getImages() {
-        return $this->hasMany(ImageManager::className(),['item_id' => 'id'])->andWhere(['class' => self::tableName()]);
+    public function getImages()
+    {
+        return $this->hasMany(ImageManager::className(), ['item_id' => 'id'])->andWhere(['class'=>self::tableName()])->orderBy('sort');
+    }
+
+    public function getImagesLinks()
+    {
+        return ArrayHelper::getColumn($this->images,'imageUrl');
+    }
+
+    public function getImagesLinksData()
+    {
+        return ArrayHelper::toArray($this->images,[
+                ImageManager::className() => [
+                    'caption'=>'name',
+                    'key'=>'id',
+                ]]
+        );
     }
 
     public function getBlogTag() {
