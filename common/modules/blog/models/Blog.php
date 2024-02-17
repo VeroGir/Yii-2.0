@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models;
+namespace common\modules\blog\models;
 
 use common\components\behaviors\StatusBehavior;
+use common\models\User;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;

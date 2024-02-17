@@ -11,7 +11,11 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'blog' => [
+            'class' => 'common\modules\blog\Blog',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -44,6 +48,7 @@ return [
             'rules' => [
             ],
         ],
+
     ],
     'params' => $params,
 ];
