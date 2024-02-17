@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use metalguardian\fotorama\Fotorama;
 
 /** @var yii\web\View $this */
-/** @var common\models\Blog $model */
+/** @var \common\modules\blog\models\Blog $model */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];

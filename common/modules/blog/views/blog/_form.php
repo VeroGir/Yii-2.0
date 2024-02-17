@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use vova07\imperavi\Widget;
 use kartik\select2\Select2;
-use common\models\Tag;
+use common\modules\blog\models\Tag;
 use yii\helpers\ArrayHelper;
-use common\models\Blog;
+use common\modules\blog\models\Blog;
 use yii\helpers\Url;
 use kartik\file\FileInput;
 
 /** @var yii\web\View $this */
-/** @var common\models\Blog $model */
+/** @var Blog $model */
 /** @var yii\widgets\ActiveForm $form */
 
 ?>
@@ -78,7 +78,7 @@ use kartik\file\FileInput;
             'multiple'=>true
         ],
         'pluginOptions' => [
-            'deleteUrl' => Url::toRoute(['/blog/delete-image']),
+            'deleteUrl' => Url::toRoute(['/blog/blog/delete-image']),
             'initialPreview'=> $model->imagesLinks,
             'initialPreviewAsData'=>true,
             'overwriteInitial'=>false,
@@ -92,7 +92,7 @@ use kartik\file\FileInput;
         ],
         'pluginEvents' => [
             'filesorted' => new \yii\web\JsExpression('function(event, params){
-                  $.post("'.Url::toRoute(["/blog/sort-image","id"=>$model->id]).'",{sort: params});
+                  $.post("'.Url::toRoute(["/blog/blog/sort-image","id"=>$model->id]).'",{sort: params});
             }')
         ],
     ]);?>

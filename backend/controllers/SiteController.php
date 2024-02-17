@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\ImageManager;
+use common\modules\blog\models\ImageManager;
 use common\models\LoginForm;
 use yii\helpers\Url;
 use Yii;

@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Blog;
+use common\modules\blog\models\Blog;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -10,9 +10,9 @@ use kartik\file\FileInput;
 
 
 /** @var yii\web\View $this */
-/** @var common\models\BlogSearch $searchModel */
+/** @var \common\modules\blog\models\BlogSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-/** @var common\models\Blog $model */
+/** @var \common\modules\blog\models\Blog $model */
 
 $this->title = 'Blogs';
 $this->params['breadcrumbs'][] = $this->title;
