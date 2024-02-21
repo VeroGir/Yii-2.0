@@ -30,6 +30,10 @@ use yii\web\UploadedFile;
 class Blog extends ActiveRecord
 {
     const STATUS_LIST = ['off', 'on'];
+    const IMAGES_SIZE = [
+        ['50','50'],
+        ['800',null],
+    ];
     public $tags_array;
     public $file;
     /**
@@ -201,6 +205,28 @@ class Blog extends ActiveRecord
             }
         }
         BlogTag::deleteAll(['tag_id'=>$arr]);
+    }
+
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            $dir = Yii::getAlias('@images').'/blog/';
+            if(file_exists($dir.$this->image)){
+                unlink($dir.$this->image);
+            }
+            foreach (self::IMAGES_SIZE as $size){
+                $size_dir = $size[0].'x';
+                if($size[1] !== null)
+                    $size_dir .= $size[1];
+                if(file_exists($dir.$this->image)){
+                    unlink($dir.$size_dir.'/'.$this->image);
+                }
+            }
+            BlogTag::deleteAll(['blog_id'=>$this->id]);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
