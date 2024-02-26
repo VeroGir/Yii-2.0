@@ -6,14 +6,39 @@ $params = array_merge(
     require __DIR__ . '/params-local.php'
 );
 
+use kartik\datecontrol\Module;
+
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'language' => 'ru',
     'bootstrap' => ['log'],
     'modules' => [
         'blog' => [
             'class' => 'common\modules\blog\Blog',
+        ],
+
+        'datecontrol' =>  [
+            'class' => 'kartik\datecontrol\Module',
+
+            'displaySettings' => [
+                Module::FORMAT_DATE => 'php: d-M-Y',
+                Module::FORMAT_TIME => 'php: H:i',
+                Module::FORMAT_DATETIME => 'php: d-M-Y H:i',
+            ],
+
+            'saveSettings' => [
+                Module::FORMAT_DATE => 'yyyy-M-dd',
+                Module::FORMAT_TIME => 'H:i:s',
+                Module::FORMAT_DATETIME => 'yyyy-M-dd H:i:s',
+            ],
+
+            'displayTimezone' => 'Asia/Kolkata',
+
+            'saveTimezone' => 'UTC',
+
+            'autoWidget' => true,
         ],
     ],
     'components' => [
@@ -47,6 +72,16 @@ return [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'language' => 'ru',
+            'dateFormat' => 'php: d-M-Y',
+            'datetimeFormat' => 'php: d-M-Y H:i',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',
         ],
 
     ],
