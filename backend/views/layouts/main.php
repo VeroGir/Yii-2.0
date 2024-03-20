@@ -35,10 +35,15 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Дом', 'url' => ['/site/index']],
+        ['label' => 'Продукт', 'url' => ['/product']],
+        ['label' => 'Склад', 'url' => ['/warehouse']],
+        ['label' => 'Блог', 'url' => ['blog/blog']],
+        ['label' => 'Время', 'url' => ['/time']],
+        ['label' => 'Меню', 'url' => ['/menu']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Логин', 'url' => ['/site/login']];
     }     
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],

@@ -2,7 +2,7 @@
 
 namespace frontend\controllers;
 
-use common\models\Blog;
+use common\modules\blog\models\Blog;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use Yii;

@@ -11,9 +11,20 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'v1' => [
+            'class' => 'frontend\modules\v1\Module',
+        ],
+        'v2' => [
+            'class' => 'frontend\modules\v2\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -39,10 +50,22 @@ return [
 
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
                 'blog/<url>' => 'blog/one',
                 'blog' => 'blog/index',
+                [
+                'class' => 'yii\rest\UrlRule',
+                    'controller' => ['order','v1/product' => 'v1/product'],
+                    'pluralize' => false,
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => ['product', 'v2/product'=>'v2/product'],
+                    'pluralize' => false,
+                ],
+
             ],
         ],
         'assetManager' => [
