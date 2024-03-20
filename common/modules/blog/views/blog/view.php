@@ -5,7 +5,7 @@ use yii\widgets\DetailView;
 use metalguardian\fotorama\Fotorama;
 
 /** @var yii\web\View $this */
-/** @var \common\modules\blog\models\Blog $model */
+/** @var common\modules\blog\models\Blog $model */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Blogs', 'url' => ['index']];
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="blog-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?php if (Yii::$app->user->can('updatePost', ['author_id' => $model->user_id])):?>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <?php endif;?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
